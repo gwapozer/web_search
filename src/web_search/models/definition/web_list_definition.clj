@@ -1,0 +1,16 @@
+(ns web-search.models.definition.web_list_definition
+  (:require  [definition.table_struct :refer :all])
+  (:import (definition.table_struct table-struct ))
+  )
+
+(def web_list_definition #{(table-struct. 1 "ID" "ID" "INTEGER" 10 true false true)
+                           (table-struct. 2 "web_site_id" "web_site_id" "INTEGER" 11 false false false)
+                           (table-struct. 3 "web_keyword_id" "web_keyword_id" "INTEGER" 11  false false false)
+                           (table-struct. 4 "web_title" "web_title" "VARCHAR" 255 false false false)
+                           (table-struct. 5 "web_description" "web_description" "VARCHAR" 255 false false false)
+                           (table-struct. 6 "web_link" "web_link" "VARCHAR" 255 false false false)
+                           (table-struct. 7 "list_order" "list_order" "INTEGER" 11 false false false)
+                           (table-struct. 8 "status" "status" "INTEGER" 11 false false false)
+                           (table-struct. 9 "modified_date" "modified_date" "TIMESTAMP" nil false false false)
+                           (table-struct. 10 "created_date" "created_date" "DATETIME" nil false false false)
+                           })
