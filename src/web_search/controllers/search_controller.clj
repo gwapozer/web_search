@@ -12,13 +12,15 @@
     (web_search.models.entity.web_list web_list)
     (web_search.models.entity.web_searchlog web_searchlog)
     (cljhelpers.dborm Where-Cl)
-    (cljhelpers.dborm Limit-Cl)
-    )
+    (cljhelpers.dborm Limit-Cl Param-Cl)
+    (java.sql Types))
   )
 
 (defn- add-search-log
   [search-str]
-  (def buff-web-searchlog (web_searchlog. nil (str search-str) 1 1 nil nil))
+  (def get-id (db-proc (db-spec) false "inter_serverGetKeyVal" [(Param-Cl. "in" "web_searchlog_id" nil)
+                                                                         (Param-Cl. "out" "key" (Types/INTEGER))]))
+  (def buff-web-searchlog (web_searchlog. (:out (first get-id) ) (str search-str) 1 1 nil nil))
   (dborm/db-insert (db-spec) web_searchlog_definition buff-web-searchlog)
   )
 
