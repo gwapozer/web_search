@@ -4,7 +4,8 @@
     [hiccup.core :refer [h html]]
     [hiccup.form :as form]
     [ring.util.anti-forgery :as anti-forgery]
-    [cljhelpers.eval-obj :as oe]))
+    [cljhelpers.eval-obj :as oe]
+    ))
 
 
 (defn search-form
@@ -56,15 +57,21 @@
   )
 
 (defn display-search [search-str pagination results]
-  [:div
-   (map (fn [result] [:div
-                      [:br [:a {:href (str "http://" (:web_link result)) :target "_blank" } [:font {:size "5" :color "white"} (h (:web_title result))]] ]
-                      [:br [:font {:size "5" :color "red"} (h (:web_description result))]]
-                      ]
-          ) results)
 
-   (display-pagination search-str pagination)
-   ]
+   (cond (not= pagination nil)
+         (do
+           [:div
+           (map (fn [result] [:div
+                              [:br [:a {:href (str "http://" (:web_link result)) :target "_blank"} [:font {:size "5" :color "white"} (h (:web_title result))]]]
+                              [:br [:font {:size "5" :color "red"} (h (:web_description result))]]
+                              ]
+                  ) results)
+
+           (display-pagination search-str pagination)
+           ]
+           )
+         :else [:div [:center  [:br [:font {:size "5" :color "red"} results ]]]]
+         )
   )
 
 (defn index
